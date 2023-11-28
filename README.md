@@ -4,3 +4,4 @@ Input with text field and generate output pdf
 ## Library
 - Browserify
 - PDFKit
+- Tailwind
