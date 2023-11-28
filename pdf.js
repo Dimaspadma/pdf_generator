@@ -15,6 +15,7 @@ const blobStream = require('blob-stream');
 
 // Add another page
 const generate = async (objs) => {
+
   // Create a document
   const doc = new PDFDocument({ size: 'A4', margin: 20 });
 
@@ -65,14 +66,23 @@ const generate = async (objs) => {
   // Finalize PDF file
   doc.end();
 
-  stream.on('finish', function () {
-    // get a blob you can do whatever you like with
-    const blob = stream.toBlob('application/pdf');
-    // console.log(blob);
-    const fileURL = URL.createObjectURL(blob);
-    window.open(fileURL);
-    // console.log(fileURL)
+  // Create new promise
+  const p1 = new Promise((resolve, reject) => {
+
+    stream.on('finish', function () {
+
+      resolve("Finish");
+
+      // get a blob you can do whatever you like with
+      const blob = stream.toBlob('application/pdf');
+      // console.log(blob);
+      const fileURL = URL.createObjectURL(blob);
+      window.open(fileURL);
+      // console.log(fileURL)
+    });
   });
+
+  return p1;
 }
 
 exports.generate = generate;

@@ -1,4 +1,8 @@
 const generatePdf = () => {
+
+  console.log("Loading...");
+  $("#loading").show();
+
   var pengirim = $("input[name=pengirim]").val();
   var nomorPengirim = $("input[name=nomorPengirim]").val();
 
@@ -47,6 +51,15 @@ const generatePdf = () => {
   }
 
   pdfkit.generate(list)
+    .then((val) => {
+      console.log(val);
+      $("#loading").hide();
+    })
 }
 
 $("#generate").on("click", generatePdf);
+
+// On ready
+$(document).ready(() => {
+  $("#loading").hide();
+});
